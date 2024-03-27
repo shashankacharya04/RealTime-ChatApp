@@ -13,4 +13,4 @@ messages:[
 ]
 },{timestamps:true})
 
-const Conversation = mongoose.model("Conversation",conversationSchema)
+export const Conversation = mongoose.model("Conversation",conversationSchema)

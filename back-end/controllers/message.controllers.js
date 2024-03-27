@@ -1,5 +1,59 @@
+import { Conversation } from "../models/conversation.models.js";
+import Message from "../models/message.model.js";
+
 export const sendMessage =async(req,res)=>{
-res.json({
-    fowjf:"kcj"
-})
+    try {
+        const {message} = req.body
+        const {id:recieverId} = req.params;
+        const senderId = req.user._id;
+        let conversation = await Conversation.findOne({
+            participants:{$all: [senderId,recieverId]},
+        })
+        if(!conversation){
+            conversation = await Conversation.create({
+                participants:[senderId,recieverId]
+            })
+        }
+        const newMessage = new Message({
+            senderId,
+            recieverId,
+            message
+        })
+        if(newMessage ){
+            conversation.messages.push(newMessage._id)
+        }
+        // await conversation.save();
+        // await newMessage.save();
+        await Promise.all([conversation.save(), newMessage.save()]); // runs in parallel instead of waiting for one to finish
+        res.status(201).json({
+            message:"message sent successfully",
+            newMessage
+        })
+
+    } catch (error) {
+        console.log("error in sendMessage controller",error.message)
+        res.status(500).json({
+            error:"internal server error"
+        })
+    }
+}
+export const getMessage = async(req,res)=>{
+    try {
+        const {id:userToChat} =req.params;
+        const senderId = req.user._id;
+        const conversation = await Conversation.findOne({participants:{$all:[senderId,userToChat]}}).populate("messages");
+        //.populate finds object id name and prints objects
+        if(!conversation) res.status(200).json([]);
+        const messages = conversation?.messages
+        res.status(200).json(
+            messages
+        )
+
+
+    } catch (error) {
+        console.log("error in getMessage controller",error.message)
+        res.status(500).json({
+            error:"internal server error"
+        })
+    }
 }

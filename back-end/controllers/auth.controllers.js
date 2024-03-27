@@ -57,7 +57,9 @@ export const login = async(req,res)=>{
     try {
     const {userName,password}=req.body;
     const user=await User.findOne({userName});
+    console.log("user is",user)
     const isPasswordValid = await bcrypt.compare(password,user?.password || "")
+    console.log("pwd valid",isPasswordValid);
     if(!user || !isPasswordValid){
 return res.status(400).json({error:"invalid user details"});
 
