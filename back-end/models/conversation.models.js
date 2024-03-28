@@ -4,7 +4,7 @@ participants:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:"User",
 }],
-messages:[
+messages:[  
     {
         type:mongoose.Schema.Types.ObjectId,
         ref:"Message",

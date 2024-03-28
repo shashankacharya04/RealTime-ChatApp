@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon back-end/index.js"
+    "start": "nodemon back-end/index.js"
   },
-  "type":"module",
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,5 +17,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.3",
     "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "daisyui": "^4.9.0"
   }
 }
