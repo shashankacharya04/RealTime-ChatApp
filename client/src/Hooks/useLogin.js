@@ -1,12 +1,13 @@
 import { Parentheses } from 'lucide-react';
 import React, { useState } from 'react'
 import {toast} from "react-hot-toast"
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext.jsx';
+import handleInputError from './handleInputError';
 const useLogin = () => {
  const [loading,setLoading]=useState(false);
  const {setAuthUser} = useAuthContext();
  const login =async({userName,password})=>{
- const success = handleInputErrors({userName,password});
+ const success = handleInputError({userName,password},"login");
  if(!success) return;
  setLoading(true)
  try {
@@ -34,11 +35,3 @@ setLoading(false)
 }
 
 export default useLogin
-
-function handleInputErrors({userName,password}){
-    if(!userName || !password) {
-        toast.error("please fill all the fields")
-        return false
-    }
-    return true
-}

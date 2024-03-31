@@ -4,11 +4,14 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
+import { SelectedContextProvider } from "./context/SelectedContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
-        <App />
+        <SelectedContextProvider>
+          <App />
+        </SelectedContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>

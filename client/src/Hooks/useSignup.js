@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import {toast} from "react-hot-toast"
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext.jsx';
+import handleInputError from './handleInputError';
 const useSignup = () => {
     const [loading,setLoading]= useState(false);
     const {setAuthUser} = useAuthContext()
     const signup = async ({fullName,userName,password,confirmPassword,gender})=>{
-        const success= handleInputError({fullName,userName,password,confirmPassword,gender})
+        const success= handleInputError({fullName,userName,password,confirmPassword,gender},"signup")
         if(!success) return
         setLoading(true);
         try {
@@ -33,20 +34,3 @@ const useSignup = () => {
     }
 
 export default useSignup
-function handleInputError({fullName,userName,password,confirmPassword,gender}){
-    if(!fullName || !userName || !password || !confirmPassword || !gender){
-        toast.error("fill up the form nigga and them submit");
-        return false;
-    }
-    if(password !== confirmPassword){
-        toast.error("password does not match");
-        return false;
-    }
-    if(password.length< 6){
-        toast.error("password must be atleast 6 characters long");
-        return false
-    }
-    return true
-    
-
-}

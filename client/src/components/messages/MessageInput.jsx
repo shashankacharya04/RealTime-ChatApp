@@ -1,16 +1,32 @@
 import { Send } from "lucide-react";
+import useGetConversation from "../../Hooks/useSendMessage";
+import { useState } from "react";
 
 const MessageInput = () => {
+  const { loading, sendMsg } = useGetConversation();
+  const [message, setMessage] = useState("");
+  const handleSendMessages = async (e) => {
+    e.preventDefault();
+    if (!message) return;
+    await sendMsg(message);
+    setMessage("");
+  };
   return (
-    <form className="px-4 my-3">
+    <form className="px-4 my-3" onSubmit={handleSendMessages}>
       <div className="w-full flex gap-1">
         <input
           type="text"
           className="border text-sm rounded-lg block w-full p-2.5  bg-gray-700 border-gray-600 text-white"
           placeholder="Send a message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <button type="submit" className="border p-1 rounded-md px-2">
-          <Send />
+          {loading ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            <Send />
+          )}
         </button>
       </div>
     </form>
