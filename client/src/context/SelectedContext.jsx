@@ -7,7 +7,7 @@ export const useSelectedContext = () => {
 export const SelectedContextProvider = ({ children }) => {
   const [selectedConvo, setSelectedConvo] = useState("");
   const [messages, setMessages] = useState([]);
-
+  console.log("sewle", selectedConvo);
   return (
     <SelectedContext.Provider
       value={{ selectedConvo, setSelectedConvo, messages, setMessages }}

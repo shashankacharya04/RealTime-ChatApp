@@ -9,12 +9,14 @@ const useGetMessages =()=>{
         const getMessage =async()=>{
             setLoading(true)
             try {
-                const res = await fetch(`api/messages/send/${selectedConvo?._id}`);
+                const res = await fetch(`api/messages/${selectedConvo?._id}`);
                 const data = await res.json();
+                console.log("data is",data)
                 if(data.error) throw new Error(data.error)
                 setMessages(data)
             } catch (error) {
                     toast.error(error.message)
+                    console.log("error is",error)
             }finally{
         setLoading(false)
             }
@@ -25,3 +27,4 @@ const useGetMessages =()=>{
     
      return { messages,loading}   
 }
+export default useGetMessages
