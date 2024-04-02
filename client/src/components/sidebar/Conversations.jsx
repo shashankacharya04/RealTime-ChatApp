@@ -4,7 +4,7 @@ import useGetConversation from "../../Hooks/useGetConversation";
 import { getRandomEmoji } from "../../utils/getEmoji";
 const Conversations = () => {
   const { loading, conversation } = useGetConversation();
-  console.log("users are", typeof conversation);
+
   return (
     <div className=" py-2 flex flex-col overflow-auto">
       {conversation.map((convo, idx) => (

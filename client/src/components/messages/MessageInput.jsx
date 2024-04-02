@@ -1,9 +1,10 @@
 import { Send } from "lucide-react";
 import useGetConversation from "../../Hooks/useSendMessage";
 import { useState } from "react";
+import useSendMessage from "../../Hooks/useSendMessage";
 
 const MessageInput = () => {
-  const { loading, sendMsg } = useGetConversation();
+  const { loading, sendMsg } = useSendMessage();
   const [message, setMessage] = useState("");
   const handleSendMessages = async (e) => {
     e.preventDefault();

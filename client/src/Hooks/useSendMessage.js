@@ -6,11 +6,11 @@ const useSendMessage = () => {
  const[loading,setLoading] =useState(false);
 
  const {messages,setMessages,selectedConvo}= useSelectedContext();
- const selectedId = selectedConvo?._id
+ 
  const sendMsg =async(message)=>{
     setLoading(true)
     try {
-        const res = await fetch(`/api/messages/send/${selectedId}`,
+        const res = await fetch(`/api/messages/send/${ selectedConvo?._id}`,
         {method:"POST",
         headers:{"content-type":"application/json"},
         body:JSON.stringify({message})
@@ -19,7 +19,7 @@ const useSendMessage = () => {
         if(data.error){
             throw new Error(data.error);
         }
-        setMessages((prev)=> ([...prev,message]) )
+        setMessages((prev)=> ([...prev,data]) )
     } catch (error) {
         toast.error(error.message)
     }finally{
@@ -28,5 +28,4 @@ setLoading(false)
  }
  return {loading,sendMsg}
 }
-
 export default useSendMessage

@@ -25,10 +25,9 @@ export const sendMessage =async(req,res)=>{
         // await conversation.save();
         // await newMessage.save();
         await Promise.all([conversation.save(), newMessage.save()]); // runs in parallel instead of waiting for one to finish
-        res.status(201).json({
-            message:"message sent successfully",
+        res.status(201).json( // was returning nested object instead of single onject this caused error while sending messages
             newMessage
-        })
+        ) 
 
     } catch (error) {
         console.log("error in sendMessage controller",error.message)
