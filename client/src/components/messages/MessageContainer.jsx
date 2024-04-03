@@ -3,6 +3,7 @@ import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import { MessageCircleDashed } from "lucide-react";
 import { useSelectedContext } from "../../context/SelectedContext";
+import { useSocketContext } from "../../context/SocketContext";
 function MessageContainer() {
   const { selectedConvo, setSelectedConvo } = useSelectedContext();
   useEffect(() => {

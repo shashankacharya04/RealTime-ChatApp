@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelectedContext } from "../../context/SelectedContext.jsx";
-import { set } from "mongoose";
+import { useSocketContext } from "../../context/SocketContext.jsx";
+
 const Conversation = ({ convo, emoji, lastIdx }) => {
   const { selectedConvo, setSelectedConvo } = useSelectedContext();
   const isSele = selectedConvo?._id === convo._id;
+  const { onlineUser } = useSocketContext();
+  const isOnline = onlineUser.includes(convo._id);
   return (
     <>
       <div
@@ -13,7 +16,7 @@ const Conversation = ({ convo, emoji, lastIdx }) => {
         onClick={() => setSelectedConvo(convo)}
       >
         {/* // online offline should be dynamix */}
-        <div className="avatar online">
+        <div className={`avatar ${isOnline ? "online" : ""}`}>
           <div className="w-12 rounded-full">
             <img src={convo.profilePic} alt="user avatar" />
           </div>

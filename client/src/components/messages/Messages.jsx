@@ -17,7 +17,7 @@ const Messages = () => {
   return (
     <div className="px-4 flex-1 overflow-auto">
       {!loading && messages.length == 0 && (
-        <p className="flex text-lg  font-bold justify-center ">
+        <p className="flex text-lg  font-bold justify-center mt-52 ">
           send a message to start conversation 👋
         </p>
       )}
