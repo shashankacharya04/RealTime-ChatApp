@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon back-end/index.js"
+    "server": "nodemon back-end/index.js",
+    "start": "node back-end/index.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
   "type": "module",
   "author": "",
