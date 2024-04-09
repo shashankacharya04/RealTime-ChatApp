@@ -24,7 +24,7 @@ const Login = () => {
         <form onSubmit={handleLogin}>
           <div>
             <label className="label p-2">
-              <span className=" text-base label-text">username</span>
+              <span className=" text-base label-text">Username</span>
             </label>
             <input
               type="text"
@@ -37,7 +37,7 @@ const Login = () => {
             ></input>
             <div>
               <label className="label p-2">
-                <span className=" text-base label-text">password</span>
+                <span className=" text-base label-text">Password</span>
               </label>
               <input
                 type="text"
@@ -50,7 +50,7 @@ const Login = () => {
               ></input>
             </div>
             <Link to="/signup" className="hover:text-stone-200">
-              dont have an account?
+              Don't have an account?
             </Link>
             <div>
               <button className="btn btn-block btn-sm mt-2" disabled={loading}>
