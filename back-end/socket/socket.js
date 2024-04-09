@@ -1,4 +1,4 @@
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 import express  from "express";
 import http from 'http';
 
@@ -35,7 +35,7 @@ io.on("connection",(socket)=>{
     socket.on('disconnect',()=>{
         console.log("user disconnected",socket.id);
         delete userSocketMap[userId];
-        io.emit("getOnlineUser",Object.keys(userSocketMap)) // returns array getonlineUser [ '6606c2b01607992275c7a8c8' ]
+        io.emit("getOnlineUser",Object.keys(userSocketMap)) // returns array getonlineUser [ '6606c2b01607992275c7a8c8' ] //mongo id
     })
 })
 
