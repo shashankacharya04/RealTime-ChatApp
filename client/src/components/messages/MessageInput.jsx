@@ -8,7 +8,7 @@ import { useSelectedContext } from "../../context/SelectedContext";
 const MessageInput = () => {
   const { loading, sendMsg } = useSendMessage();
   const [message, setMessage] = useState("");
-  const { IsTyping, handleKeyDown, handleKeyUp } = useTypingIndicator();
+  const { handleKeyDown, handleKeyUp, handleBlur } = useTypingIndicator();
   const handleSendMessages = async (e) => {
     e.preventDefault();
     if (!message) return;
@@ -26,11 +26,10 @@ const MessageInput = () => {
           value={message}
           onChange={(e) => {
             setMessage(e.target.value);
-            if (e) IsTyping(e);
-            else IsTyping();
           }}
           onKeyDown={handleKeyDown}
           onKeyUp={handleKeyUp}
+          onBlur={handleBlur}
         />
         <button type="submit" className="border p-1 rounded-md px-2">
           {loading ? (

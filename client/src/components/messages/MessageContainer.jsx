@@ -43,7 +43,7 @@ function MessageContainer() {
                 istyping == true ? (
                   <div className="flex">
                     <span>Typing</span>
-                    <span className="loading loading-dots loading-xs mt-1" />
+                    <span className="loading loading-bars loading-sm" />
                   </div>
                 ) : (
                   ""

@@ -25,17 +25,19 @@ const useTypingIndicator = () => {
      setTimeout(()=>{
       socket.emit("beforeTyping",{selectedUser:selectedConvo?._id,senderId:authUser._id,typing:true});
      },100)
-         
-      
+          
     };
-    setTimeout(()=>{
-      
-    })
     const handleKeyUp = (e) => {
       setTimeout(()=>{
          socket.emit("beforeTyping",{selectedUser:selectedConvo?._id,senderId:authUser._id,typing:false});
       },2000)
     };
+    const handleBlur =(()=>{
+       setTimeout(()=>{
+        // socket?.off("beforeTyping");
+        socket.emit("beforeTyping",{selectedUser:selectedConvo?._id,senderId:authUser._id,typing:false});
+       },1000)
+    })
    useEffect(()=>{
       socket?.on("typing",(value)=>{
          if(value.typing == true){
@@ -45,10 +47,11 @@ const useTypingIndicator = () => {
            setIsTyping(false);
          }
       })
-     // return ()=> socket?.off("typing");
+     return ()=> {socket?.off("beforeTyping");console.log("component unmounted")};
+     
    },[socket])
    
-   return {istyping,from,handleKeyDown,handleKeyUp}
+   return {istyping,from,handleKeyDown,handleKeyUp,handleBlur}
        
 }
 
