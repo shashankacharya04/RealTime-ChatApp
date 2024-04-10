@@ -1,10 +1,7 @@
 import { Send } from "lucide-react";
-import useGetConversation from "../../Hooks/useSendMessage";
 import { useState } from "react";
 import useSendMessage from "../../Hooks/useSendMessage";
 import useTypingIndicator from "../../Hooks/useTypingIndicator";
-import { useSelectedContext } from "../../context/SelectedContext";
-
 const MessageInput = () => {
   const { loading, sendMsg } = useSendMessage();
   const [message, setMessage] = useState("");
@@ -13,6 +10,7 @@ const MessageInput = () => {
     e.preventDefault();
     if (!message) return;
     await sendMsg(message);
+    gi;
     setMessage("");
   };
 
