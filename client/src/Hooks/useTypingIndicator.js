@@ -36,7 +36,7 @@ const useTypingIndicator = () => {
        setTimeout(()=>{
         // socket?.off("beforeTyping");
         socket.emit("beforeTyping",{selectedUser:selectedConvo?._id,senderId:authUser._id,typing:false});
-       },1000)
+       },3000)
     })
    useEffect(()=>{
       socket?.on("typing",(value)=>{

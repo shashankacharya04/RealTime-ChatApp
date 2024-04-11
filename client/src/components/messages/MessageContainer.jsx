@@ -42,8 +42,7 @@ function MessageContainer() {
               {selectedConvo?._id == from ? (
                 istyping == true ? (
                   <div className="flex">
-                    <span>Typing</span>
-                    <span className="loading loading-bars loading-sm" />
+                    <span>Typing...</span>
                   </div>
                 ) : (
                   ""
