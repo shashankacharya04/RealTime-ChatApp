@@ -12,8 +12,9 @@ export const SocketContextProvider = ({ children }) => {
   const [onlineUser, setOnlineUser] = useState([]);
   const { authUser } = useAuthContext();
   useEffect(() => {
+    //https://chat-app-prod-8esa.onrender.com
     if (authUser) {
-      const socket = io("https://chat-app-prod-8esa.onrender.com", {
+      const socket = io("http://localhost:5000", {
         query: { userId: authUser._id },
       });
       socket.on("getOnlineUser", (users) => {
