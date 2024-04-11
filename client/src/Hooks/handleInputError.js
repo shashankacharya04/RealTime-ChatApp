@@ -2,7 +2,7 @@ import {toast} from "react-hot-toast"
 function handleInputError({fullName,userName,password,confirmPassword,gender},action){
     if(action == "signup"){
         if(!fullName || !userName || !password || !confirmPassword || !gender){
-            toast.error("fill up the form nigga and them submit");
+            toast.error("please fill all the fields");
             return false;
         }
         if(password !== confirmPassword){

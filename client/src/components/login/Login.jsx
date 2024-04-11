@@ -16,9 +16,8 @@ const Login = () => {
   };
   return (
     <div className="flex flex-col  items-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounder-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-0">
+      <div className="p-3 h-full w-full bg-gray-300 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-100">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
-          <span className="text-blue-500">Chat-App</span>
           Login
         </h1>
         <form onSubmit={handleLogin}>

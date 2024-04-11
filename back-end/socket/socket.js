@@ -22,6 +22,14 @@ io.on("connection",(socket)=>{
     if(userId !== undefined){
         userSocketMap[userId] = socket.id
     }
+    socket.on("beforeTyping",(data)=>{
+        
+        const socketid = userSocketMap[data.selectedUser];
+        // console.log("typed",data);
+        // console.log("data is",socketid)
+        // console.log("checking",userSocketMap);
+        io.to(socketid).emit("typing",{typing:data.typing,from:data.senderId})
+    })
     io.emit("getOnlineUser", Object.keys(userSocketMap))
     console.log("getonlineUser",userSocketMap); //{ '6606c2b01607992275c7a8c8': 'H3QTo9w146FYSUybAAAH' }
     socket.on('disconnect',()=>{
