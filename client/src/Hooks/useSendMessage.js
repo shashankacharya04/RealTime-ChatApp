@@ -15,12 +15,17 @@ const useSendMessage = () => {
         headers:{"content-type":"application/json"},
         body:JSON.stringify({message})
         })
+        
         const data = await res.json();
+       
         if(data.error){
+            
             throw new Error(data.error);
+            
         }
         setMessages((prev)=> ([...prev,data]) )
     } catch (error) {
+        console.log("error is",error.message);
         toast.error(error.message)
     }finally{
 setLoading(false)

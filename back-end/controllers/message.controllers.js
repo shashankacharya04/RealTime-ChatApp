@@ -60,4 +60,31 @@ export const getMessage = async(req,res)=>{
         })
     }
 }
+export const  clearMessage =async(req,res)=>{
+    try {
+        const loggedUser =req.user._id;
+        const userTochat = req.params.id;
+        console.log("user to Chat",userTochat);
+        let convo = await Conversation.findOne({participants:{$all:[loggedUser,userTochat]}}).populate("messages");
+        console.log("convo",convo)
+        const messages = convo?.messages;
+        const delmsg= await Message.deleteMany({_id:{$in:messages}});
+        console.log("del messg are",delmsg); //{ acknowledged: true, deletedCount: 6 }
 
+         await Conversation.findOneAndUpdate({participants:{$all:[loggedUser,userTochat]}},
+            {
+            $set:{messages:[]}},
+            {new:true}
+        )
+        res.status(200).json({
+            message:"message cleared"
+        })
+        //console.log("del is",del)
+        //console.log("convo is",convo);
+    } catch (error) {
+        console.log("error in clear chat controller",error.message);
+        res.status(500).json({
+            error:"internal server error"
+        })
+    }
+}

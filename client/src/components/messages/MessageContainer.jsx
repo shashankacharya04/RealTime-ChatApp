@@ -4,17 +4,14 @@ import MessageInput from "./MessageInput";
 import { MessageCircleDashed } from "lucide-react";
 import { useSelectedContext } from "../../context/SelectedContext";
 import useTypingIndicator from "../../Hooks/useTypingIndicator";
-import { useAuthContext } from "../../context/AuthContext";
+import useClearChat from "../../Hooks/useClearChat";
 function MessageContainer() {
   const { selectedConvo, setSelectedConvo } = useSelectedContext();
-  const { authUser } = useAuthContext();
   const { istyping, from } = useTypingIndicator(); // is typing is boolean value where from is the user who is sending the text
-  // console.log("istyping", istyping);
-  // console.log("from them", from, "to", selectedConvo?._id);
+  const { loading, clearChat } = useClearChat();
   useEffect(() => {
     return () => setSelectedConvo("");
   }, [setSelectedConvo]);
-  // const noChatSelected = true; // make it dynamix
   const NoChatSelected = () => {
     return (
       <div className=" flex justify-center items-center w-full h-full">
@@ -51,6 +48,13 @@ function MessageContainer() {
                 ""
               )}
             </span>
+            <button
+              className="btn btn-error btn-outline ml-auto"
+              onClick={async () => await clearChat()}
+              disabled={loading}
+            >
+              clear
+            </button>
           </div>
           <Messages />
           <MessageInput />
