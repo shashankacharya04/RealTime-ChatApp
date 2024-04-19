@@ -10,7 +10,6 @@ const MessageInput = () => {
     e.preventDefault();
     if (!message) return;
     await sendMsg(message);
-    gi;
     setMessage("");
   };
 
