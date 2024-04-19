@@ -47,3 +47,34 @@ export const getUsersForSideBar = async(req,res)=>{
 // //         console.log("error is",error)
 // //     }
 // }
+export const updateUser =async (req,res)=>{
+try {
+    const {fullname,password,confirmPassword} = req.body;
+    const id = req.user._id;
+    if(password !== confirmPassword){
+       return res.status(400).json({
+            error:"password does not match"
+        })
+    }
+        const user = await User.find({id});
+    if(user){
+         const updt=await User.updateOne({_id:id},{
+            $set:{
+                fullName:fullname,
+                password:password
+            }
+        });
+        //working here
+        res.status(200).json({
+            message:"updated successfully"
+        })
+    }
+    
+} catch (error) {
+    console.log("error is",error);
+    res.status(500).json({
+        error:"internal server error"
+    })
+}
+
+}

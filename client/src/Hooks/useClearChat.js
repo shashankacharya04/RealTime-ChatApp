@@ -18,7 +18,7 @@ const useClearChat = () => {
             })
             const data = res.json();
             setMessages("");
-            //socket.emit("clearChat",{to:selectedConvo._id,from:authUser._id});  working on this
+            // socket.emit("clearChat",{to:selectedConvo._id,from:authUser._id});  working on this
             if(data.error) throw new Error(data.error)
         }catch(error){
            toast.error(error.message)
