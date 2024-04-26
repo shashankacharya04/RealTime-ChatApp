@@ -13,7 +13,7 @@ const useSendMessage = () => {
         const res = await fetch(`/api/messages/send/${ selectedConvo?._id}`,
         {method:"POST",
         headers:{"content-type":"application/json"},
-        body:JSON.stringify({message})
+        body:JSON.stringify({message:message})
         })
         
         const data = await res.json();
@@ -31,6 +31,27 @@ const useSendMessage = () => {
 setLoading(false)
     }
  }
- return {loading,sendMsg}
+ const sendImg =async(img)=>{
+    setLoading(true)
+    try {
+        const res = await fetch(`/api/messages/send/${ selectedConvo?._id}`,
+        {method:"POST",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify({image:img})
+        })
+        const data = await res.json();
+        if(data.error){
+            throw new Error(data.error);
+            
+        }
+        setMessages((prev)=> ([...prev,data]) )
+    } catch (error) {
+        console.log("error is",error.message);
+        toast.error(error.message)
+    }finally{
+setLoading(false)
+    }
+ }
+ return {loading,sendMsg,sendImg}
 }
 export default useSendMessage

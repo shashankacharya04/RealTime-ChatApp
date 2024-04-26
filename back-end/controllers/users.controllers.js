@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs"
+
 import User from "../models/user.models.js"
 
 export const getUsersForSideBar = async(req,res)=>{
@@ -49,22 +51,26 @@ export const getUsersForSideBar = async(req,res)=>{
 // }
 export const updateUser =async (req,res)=>{
 try {
-    const {fullname,password,confirmPassword} = req.body;
+    const {fullName,password,confirmPassword,userName} = req.body;
     const id = req.user._id;
     if(password !== confirmPassword){
        return res.status(400).json({
             error:"password does not match"
         })
     }
-        const user = await User.find({id});
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password,salt);
+    const user = await User.find({id});
     if(user){
          const updt=await User.updateOne({_id:id},{
             $set:{
-                fullName:fullname,
-                password:password
+                fullName,
+                password:hashedPassword,
+                userName
             }
-        });
+        },{upsert:true});
         //working here
+        console.log("updatedUsewr",updt)
         res.status(200).json({
             message:"updated successfully"
         })

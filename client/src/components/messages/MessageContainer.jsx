@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
-import { MessageCircleDashed } from "lucide-react";
+import { MessageCircleDashed, EllipsisVertical } from "lucide-react";
 import { useSelectedContext } from "../../context/SelectedContext";
 import useTypingIndicator from "../../Hooks/useTypingIndicator";
 import useClearChat from "../../Hooks/useClearChat";
@@ -31,7 +31,7 @@ function MessageContainer() {
         <>
           {/* Header */}
           <div className="bg-slate-500 px-4 py-2 mb-2 flex">
-            <span className="label-text">To:</span>{" "}
+            <span className="label-text mr-2">To:</span>{" "}
             <span className="text-gray-900 font-bold">
               {selectedConvo.fullName}
             </span>
@@ -48,13 +48,28 @@ function MessageContainer() {
                 ""
               )}
             </span>
-            <button
-              className="btn btn-error btn-outline ml-auto"
-              onClick={async () => await clearChat()}
-              disabled={loading}
-            >
-              clear
-            </button>
+            <div className="dropdown dropdown-bottom dropdown-end ml-auto">
+              <div tabIndex={0} role="button">
+                <EllipsisVertical />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] menu p-2  bg-base-100 rounded-box w-52 bg-opacity-50"
+              >
+                <li>
+                  <div className="font-semibold italic">
+                    <span>Clear Chat</span>
+                    <button
+                      className="border-2  px-2 rounded-full ml-auto hover:border-red-400 hover:text-red-400"
+                      onClick={async () => await clearChat()}
+                      disabled={loading}
+                    >
+                      clear
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
           <Messages />
           <MessageInput />

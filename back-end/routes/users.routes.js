@@ -5,6 +5,6 @@ import { getUsersForSideBar,updateUser } from "../controllers/users.controllers.
 const router = express.Router();
 
 router.get("/",protectRoute,getUsersForSideBar)
-router.put("/update/:id",protectRoute,updateUser);
+router.put("/update",protectRoute,updateUser);  //works fine for now
 
 export default router

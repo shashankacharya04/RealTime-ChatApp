@@ -11,8 +11,10 @@ recieverId:{
     required:true
 },
 message:{
-    type:"string",
-    required:true
+    type:"string"
+},
+image :{
+    type:"string"
 }
 },{timestamps:true})
 const Message = mongoose.model("Message",messageSchema)

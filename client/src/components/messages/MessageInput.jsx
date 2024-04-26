@@ -1,11 +1,15 @@
-import { Send } from "lucide-react";
-import { useState } from "react";
+import { Send, Image } from "lucide-react";
+import { useRef, useState } from "react";
 import useSendMessage from "../../Hooks/useSendMessage";
 import useTypingIndicator from "../../Hooks/useTypingIndicator";
+import useHandleSendImg from "../../Hooks/useHandleSendImg";
+import PreviewImageModal from "../Modals/PreviewImageModal";
 const MessageInput = () => {
   const { loading, sendMsg } = useSendMessage();
   const [message, setMessage] = useState("");
   const { handleKeyDown, handleKeyUp, handleBlur } = useTypingIndicator();
+  const { handleSendImg, imageUrl, setImageUrl } = useHandleSendImg();
+  const imageIcon = useRef(null);
   const handleSendMessages = async (e) => {
     e.preventDefault();
     if (!message) return;
@@ -18,7 +22,7 @@ const MessageInput = () => {
       <div className="w-full flex gap-1">
         <input
           type="text"
-          className="border text-sm rounded-lg block w-full p-2.5  bg-gray-700 border-gray-600 text-white"
+          className="border text-sm rounded-lg block w-80 p-2.5  bg-gray-700 border-gray-600 text-white"
           placeholder="Send a message"
           value={message}
           onChange={(e) => {
@@ -28,14 +32,34 @@ const MessageInput = () => {
           onKeyUp={handleKeyUp}
           onBlur={handleBlur}
         />
-        <button type="submit" className="border p-1 rounded-md px-2">
-          {loading ? (
-            <span className="loading loading-spinner"></span>
-          ) : (
-            <Send />
-          )}
-        </button>
+        <div className="flex gap-2  ">
+          <button type="submit" className="border  rounded-lg px-2">
+            {loading ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              <Send />
+            )}
+          </button>
+          <button className="border-none bg-transparent">
+            <Image
+              size={35}
+              strokeWidth={1}
+              onClick={() => imageIcon.current.click()}
+              className="cursor-pointer"
+            />
+          </button>
+
+          <input
+            type="file"
+            onChange={handleSendImg}
+            ref={imageIcon}
+            hidden
+          ></input>
+        </div>
       </div>
+      {imageUrl && (
+        <PreviewImageModal setImageUrl={setImageUrl} imageUrl={imageUrl} />
+      )}
     </form>
   );
 };

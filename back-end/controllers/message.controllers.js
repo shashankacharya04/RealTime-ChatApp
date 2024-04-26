@@ -1,12 +1,14 @@
 import { Conversation } from "../models/conversation.models.js";
 import Message from "../models/message.model.js";
 import { getRecieverSocketId, io } from "../socket/socket.js";
+import {v2 as cloudinary} from "cloudinary";
 
 export const sendMessage =async(req,res)=>{
     try {
-        const {message} = req.body
+        const message = req.body.message
         const {id:recieverId} = req.params;
         const senderId = req.user._id;
+        let img = req.body.image;
         let conversation = await Conversation.findOne({
             participants:{$all: [senderId,recieverId]},
         })
@@ -15,10 +17,15 @@ export const sendMessage =async(req,res)=>{
                 participants:[senderId,recieverId]
             })
         }
+        if(img){
+            const uploadedImg = await cloudinary.uploader.upload(img);
+            img = uploadedImg.secure_url;
+        }
         const newMessage = new Message({
             senderId,
             recieverId,
-            message
+            message,
+            image: img || ""
         })
         if(newMessage ){
             conversation.messages.push(newMessage._id)
@@ -35,7 +42,7 @@ export const sendMessage =async(req,res)=>{
         ) 
 
     } catch (error) {
-        console.log("error in sendMessage controller",error.message)
+        console.log("error in sendMessage controller",error)
         res.status(500).json({
             error:"internal server error"
         })
