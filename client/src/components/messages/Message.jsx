@@ -17,12 +17,22 @@ function Message({ message }) {
         <div className={`chat-bubble ${bubbleBg} `}>{message.message}</div>
       )}
       {message.image && (
-        <div className={`chat-bubble ${bubbleBg} `}>
+        <div>
           <img
             src={`${message.image}`}
             alt="image"
-            className="h-20 w-40 rounded-md"
+            className="h-25 w-52 rounded-md border-black border-2 "
           />
+        </div>
+      )}
+      {message.video && (
+        <div>
+          <video
+            controls
+            className="h-40 w-64 border-slate-700 border-2 rounded-md"
+          >
+            <source src={`${message.video}`} />
+          </video>
         </div>
       )}
     </div>

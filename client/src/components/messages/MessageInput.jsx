@@ -8,7 +8,9 @@ const MessageInput = () => {
   const { loading, sendMsg } = useSendMessage();
   const [message, setMessage] = useState("");
   const { handleKeyDown, handleKeyUp, handleBlur } = useTypingIndicator();
-  const { handleSendImg, imageUrl, setImageUrl } = useHandleSendImg();
+  const { handleSendImg, imageUrl, setImageUrl, setVideoUrl, videoUrl } =
+    useHandleSendImg();
+  console.log("image url is", imageUrl, "videoUrl is", videoUrl);
   const imageIcon = useRef(null);
   const handleSendMessages = async (e) => {
     e.preventDefault();
@@ -16,13 +18,13 @@ const MessageInput = () => {
     await sendMsg(message);
     setMessage("");
   };
-
+  //border text-sm rounded-lg block w-80 p-2.5  bg-gray-700 border-gray-600 text-white
   return (
     <form className="px-4 my-3" onSubmit={handleSendMessages}>
-      <div className="w-full flex gap-1">
+      <div className="w-full flex gap-1 justify-center">
         <input
           type="text"
-          className="border text-sm rounded-lg block w-80 p-2.5  bg-gray-700 border-gray-600 text-white"
+          className="w-80 p-2.5 rounded-lg input input-bordered input-info mr-1"
           placeholder="Send a message"
           value={message}
           onChange={(e) => {
@@ -40,10 +42,10 @@ const MessageInput = () => {
               <Send />
             )}
           </button>
-          <button className="border-none bg-transparent">
+          <button className="border rounded-lg px-2  ">
             <Image
-              size={35}
-              strokeWidth={1}
+              size={30}
+              strokeWidth={2}
               onClick={() => imageIcon.current.click()}
               className="cursor-pointer"
             />
@@ -57,8 +59,13 @@ const MessageInput = () => {
           ></input>
         </div>
       </div>
-      {imageUrl && (
-        <PreviewImageModal setImageUrl={setImageUrl} imageUrl={imageUrl} />
+      {(imageUrl || videoUrl) && (
+        <PreviewImageModal
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+          setVideoUrl={setVideoUrl}
+          videoUrl={videoUrl}
+        />
       )}
     </form>
   );

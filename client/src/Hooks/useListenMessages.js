@@ -6,9 +6,10 @@ const useListenMessages = () => {
  const {socket} = useSocketContext();
  const {messages,setMessages} = useSelectedContext();
  useEffect(()=>{
-    socket?.on("newMessage",(newMessage)=>{setMessages([...messages,newMessage])});
-    const sound = new Audio(notifysound);
-    sound.play();
+    socket?.on("newMessage",(newMessage)=>{setMessages([...messages,newMessage]);
+      const sound = new Audio(notifysound);
+      sound.play();
+   });
     return ()=> socket?.off("newMessage"); //important bcz of multiple notification sound
  },[socket,setMessages,messages])
 }

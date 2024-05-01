@@ -15,6 +15,9 @@ message:{
 },
 image :{
     type:"string"
+},
+video :{
+    type:"string"
 }
 },{timestamps:true})
 const Message = mongoose.model("Message",messageSchema)

@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useSelectedContext } from '../context/SelectedContext';
-import { useSocketContext } from '../context/SocketContext';
-import { useAuthContext } from '../context/AuthContext';
+
 
 const useClearChat = () => {
     const [loading,setLoading] = useState(false);
     const{selectedConvo,setMessages} =useSelectedContext();
-    const {authUser} = useAuthContext();
-    const {socket} = useSocketContext();
     const clearChat = async()=>{
         setLoading(true);
         try{

@@ -10,17 +10,7 @@ const useTypingIndicator = () => {
    const {authUser} =useAuthContext();
    const [istyping,setIsTyping] = useState(false);
    const [from,setFrom] =useState("");
-   // const IsTyping =(value)=>{
-   //    console.log("value is",value)
-   //    if(value){
-   //       socket.emit("beforeTyping",{selectedUser:selectedConvo?._id,senderId:authUser._id,typing:true});
-   //    } else{
-   //       socket.emit("beforeTyping",{selectedUser:selectedConvo?._id,senderId:authUser._id,typing:false});
-   //    }
-   //     console.log("istyping called");
-       
-       
-   // }
+  
    const handleKeyDown = (e) => {
      setTimeout(()=>{
       socket.emit("beforeTyping",{selectedUser:selectedConvo?._id,senderId:authUser._id,typing:true});

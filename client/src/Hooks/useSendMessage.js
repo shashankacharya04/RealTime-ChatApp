@@ -52,6 +52,26 @@ setLoading(false)
 setLoading(false)
     }
  }
- return {loading,sendMsg,sendImg}
+ const sendVdo =async(vdo)=>{
+    setLoading(true)
+    try {
+        const res = await fetch(`/api/messages/send/${ selectedConvo?._id}`,
+        {method:"POST",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify({video:vdo})
+        })
+        const data = await res.json();
+        if(data.error){
+            throw new Error(data.error);
+        }
+        setMessages((prev)=> ([...prev,data]) )
+    } catch (error) {
+        console.log("error is",error.message);
+        toast.error(error.message)
+    }finally{
+setLoading(false)
+    }
+ }
+ return {loading,sendMsg,sendImg,sendVdo}
 }
 export default useSendMessage

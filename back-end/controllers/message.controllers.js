@@ -9,6 +9,7 @@ export const sendMessage =async(req,res)=>{
         const {id:recieverId} = req.params;
         const senderId = req.user._id;
         let img = req.body.image;
+        let vdo = req.body.video;
         let conversation = await Conversation.findOne({
             participants:{$all: [senderId,recieverId]},
         })
@@ -21,11 +22,16 @@ export const sendMessage =async(req,res)=>{
             const uploadedImg = await cloudinary.uploader.upload(img);
             img = uploadedImg.secure_url;
         }
+        if(vdo){
+            const uploadVdo = await cloudinary.uploader.upload(vdo,{resource_type:'video'});
+            vdo = uploadVdo.secure_url;
+        }
         const newMessage = new Message({
             senderId,
             recieverId,
             message,
-            image: img || ""
+            image: img || "",
+            video:vdo || ""
         })
         if(newMessage ){
             conversation.messages.push(newMessage._id)

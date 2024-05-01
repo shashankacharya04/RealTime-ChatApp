@@ -24,7 +24,8 @@ function MessageContainer() {
     );
   };
   return (
-    <div className="md:min-w-[450px] flex flex-col">
+    <div className="md:min-w-[600px] flex flex-col">
+      {" "}
       {!selectedConvo ? (
         <NoChatSelected />
       ) : (

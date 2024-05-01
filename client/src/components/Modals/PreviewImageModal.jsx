@@ -1,31 +1,52 @@
 import React from "react";
-import { Send, CircleX } from "lucide-react";
+import { CircleX } from "lucide-react";
 import useSendMessage from "../../Hooks/useSendMessage";
-const PreviewImageModal = ({ setImageUrl, imageUrl }) => {
+const PreviewImageModal = ({
+  setImageUrl,
+  imageUrl,
+  setVideoUrl,
+  videoUrl,
+}) => {
   //flex-col fixed inset-0 bg-black bg-opacity-30 backdrop-blur-md flex items-center justify-center
-  const { sendImg, loading } = useSendMessage();
+  const { sendImg, sendVdo, loading } = useSendMessage();
+  const spanRef = React.useRef(null);
+  console.log("spanref is", spanRef);
   return (
     <div className="card h-auto w-96 bg-base-100 shadow-xl fixed inset-0 ">
       <div className="card-body">
-        <img
-          src={`${imageUrl}`}
-          alt="image"
-          className=" w-25 h-25 rounded-md border-2 box-border"
-        />
+        {imageUrl && (
+          <img
+            src={`${imageUrl}`}
+            alt="image"
+            className=" w-25 h-25 rounded-md border-2 box-border"
+          />
+        )}
+        {videoUrl && (
+          <video controls className="h-64 w-full" autoPlay>
+            <source src={`${videoUrl}`} type="video/mp4" />
+          </video>
+        )}
+
         <div className="card-actions justify-end ">
           <button
             className="btn btn-primary "
-            onClick={() => setImageUrl(null)}
+            onClick={() => {
+              setImageUrl(null);
+              setVideoUrl(null);
+            }}
           >
             <CircleX color="brown" size={30} />
           </button>
           <button
             className="btn  btn-primary"
-            onClick={async () => await sendImg(imageUrl)}
+            onClick={async () => {
+              imageUrl && (await sendImg(imageUrl));
+              videoUrl && (await sendVdo(videoUrl));
+            }}
             disabled={loading}
           >
             {loading ? (
-              <span className="loading loading-spinner"></span>
+              <span className="loading loading-spinner" ref={spanRef}></span>
             ) : (
               "send"
             )}
